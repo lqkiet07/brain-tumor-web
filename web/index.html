@@ -53,7 +53,7 @@
           <span class="chip__sub">DenseNet-121 (5-Fold CV)</span>
         </div>
         <div class="chip">
-          <span class="chip__label">Top Demo Trực Tiếp</span>
+          <span class="chip__label">Top Live Demo</span>
           <span class="chip__val mono">95,12%</span>
           <span class="chip__sub">VGG16 (Mở Block 4+5)</span>
         </div>
@@ -65,7 +65,7 @@
         <div class="chip">
           <span class="chip__label">Tập kiểm thử</span>
           <span class="chip__val mono">1.600</span>
-          <span class="chip__sub">400 ca / mỗi nhóm bệnh</span>
+          <span class="chip__sub">400 ca / nhóm bệnh</span>
         </div>
       </div>
     </div>
@@ -75,21 +75,21 @@
   <section class="section" id="leaderboard">
     <div class="wrap">
       <div class="section-header">
-        <h2 class="section-title">Bảng xếp hạng hiệu năng và chi phí tính toán</h2>
-        <p class="section-lead">Số liệu đo lường trực tiếp trên 1.600 ảnh kiểm thử độc lập, đối chiếu từ các tập nhật ký thực nghiệm gốc.</p>
+        <h2 class="section-title">Bảng đối sánh hiệu năng</h2>
+        <p class="section-lead">Số liệu đo lường trực tiếp trên 1.600 ảnh kiểm thử độc lập (400 ảnh/lớp).</p>
       </div>
 
       <div class="table-card">
         <table class="data-table" id="leaderboard-table">
           <thead>
             <tr>
-              <th scope="col">Kiến trúc mô hình</th>
-              <th scope="col">Trường phái mạng</th>
+              <th scope="col">Mô hình</th>
+              <th scope="col">Trường phái</th>
               <th scope="col" class="num">Tham số</th>
               <th scope="col" class="num">Test Accuracy</th>
               <th scope="col" class="num">Macro F1</th>
               <th scope="col" class="num">Độ trễ GPU</th>
-              <th scope="col" class="num">Dung lượng .h5</th>
+              <th scope="col" class="num">Dung lượng</th>
             </tr>
           </thead>
           <tbody></tbody>
@@ -121,20 +121,6 @@
 
       <div class="track-panel" id="track-panel">
         <!-- Rendered by JS -->
-      </div>
-    </div>
-  </section>
-
-  <!-- Dataset Overview Section -->
-  <section class="section" id="dataset">
-    <div class="wrap">
-      <div class="section-header">
-        <h2 class="section-title">7.200 ảnh MRI sọ não, phân bố 4 nhóm bệnh</h2>
-        <p class="section-lead">5.600 ảnh huấn luyện &amp; kiểm định (1.400 ảnh/lớp). 1.600 ảnh kiểm thử độc lập (400 ảnh/lớp).</p>
-      </div>
-
-      <div class="aug-strip" id="aug-strip">
-        <!-- 9 augmentation tiles rendered by JS -->
       </div>
     </div>
   </section>
@@ -181,7 +167,6 @@
             <div class="lightbox-container" id="result-box" hidden>
               <div class="diag-result-header">
                 <div>
-                  <div class="eyebrow" id="result-eyebrow" style="color:var(--lightbox-muted); margin:0;">Chẩn đoán</div>
                   <div class="diag-status-label" id="result-label">—</div>
                 </div>
                 <div class="diag-confidence mono" id="result-confidence">—</div>
@@ -206,7 +191,7 @@
             </div>
 
             <div class="empty-state" id="empty-state">
-              Chưa có ảnh nào được phân tích. Hãy chọn mô hình và tải ảnh MRI lên để xem nhãn phân loại và bản đồ nhiệt.
+              Tải ảnh MRI lên (hoặc bấm "Dùng ảnh mẫu") để xem kết quả phân loại và bản đồ nhiệt XAI.
             </div>
 
             <div id="demo-error" style="display:none; margin-top: 1rem; color: var(--color-danger); font-size: 13px; border-left: 2px solid var(--color-danger); padding-left: 0.75rem;"></div>

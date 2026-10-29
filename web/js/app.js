@@ -147,14 +147,6 @@ function renderTrackWorkspace(trackId) {
   `;
 }
 
-/* ---------------------------------------------------------- Dataset Grid */
-function renderDatasetStrip() {
-  const aug = PROJECT.assets.filter((f) => f.startsWith("dataset/aug_")).sort();
-  byId("aug-strip").innerHTML = aug
-    .map((file, i) => `<img src="/assets/${file}" alt="Biến thể tăng cường ${i + 1}" loading="lazy" />`)
-    .join("");
-}
-
 /* ---------------------------------------------------------- Init */
 async function boot() {
   try {
@@ -191,7 +183,6 @@ async function boot() {
 
   renderLeaderboard("all");
   renderTrackWorkspace("vgg");
-  renderDatasetStrip();
 }
 
 document.addEventListener("DOMContentLoaded", boot);

@@ -119,6 +119,17 @@ def test_no_redundant_filler_text_in_html_and_js():
         assert text not in js, f"app.js van con chua text thua: {text}"
 
 
+def test_ui_streamlining_removes_dataset_section_and_eyebrow():
+    html = INDEX_HTML.read_text(encoding="utf-8")
+    assert 'id="dataset"' not in html, "section #dataset da bi loai bo de tinh gon"
+    assert 'id="aug-strip"' not in html, "#aug-strip da bi loai bo"
+    assert 'id="result-eyebrow"' not in html, "#result-eyebrow da bi loai bo"
+    assert '<th scope="col">Mô hình</th>' in html, "Tieu de cot bang phai la 'Mô hình'"
+    assert '<th scope="col">Trường phái</th>' in html, "Tieu de cot bang phai la 'Trường phái'"
+    assert '<th scope="col" class="num">Dung lượng</th>' in html, "Tieu de cot bang phai la 'Dung lượng'"
+
+
+
 
 
 
