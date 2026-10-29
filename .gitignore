@@ -28,6 +28,7 @@ models/*.keras
 
 # Documentation & reports
 docs/
+.handoffs/
 *.docx
 web/assets/report/*.docx
 
