@@ -1,0 +1,37 @@
+# Python bytecode & cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+
+# Test & coverage artifacts
+.pytest_cache/
+.shots/
+.coverage
+htmlcov/
+
+# Server runtime logs
+*.log
+server.log
+server.err.log
+
+# Heavy deep learning weights (> 100MB, excluded from Git)
+models/*.h5
+models/*.keras
+!models/.gitkeep
+
+# Documentation & reports
+docs/
+*.docx
+web/assets/report/*.docx
+
+# Operating System artifacts
+.DS_Store
+Thumbs.db
+desktop.ini

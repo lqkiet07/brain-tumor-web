@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Brain Tumor MRI Lab — Khảo sát 8 mô hình CNN trên 7.200 ảnh MRI não</title>
+<meta name="description" content="Nghiên cứu đối sánh 8 mô hình CNN (DenseNet, VGG, ResNet, Inception, ConvNeXt, MobileNet) trên 7.200 ảnh MRI não và phòng thử nghiệm trực tiếp." />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23111827'/%3E%3Ccircle cx='16' cy='16' r='6' fill='none' stroke='%231D4ED8' stroke-width='3'/%3E%3C/svg%3E" />
+<link rel="stylesheet" href="/css/fonts.css" />
+<link rel="stylesheet" href="/css/style.css?v=3" />
+</head>
+<body>
+<a class="skip-link" href="#main">Bỏ qua tới nội dung</a>
+
+<!-- Global Header -->
+<header class="site-header">
+  <div class="wrap site-header__inner">
+    <a class="brand" href="#">
+      <span>Brain Tumor MRI Lab</span>
+      <span class="brand__tag">Benchmark</span>
+    </a>
+    <nav class="track-filter" aria-label="Lọc họ kiến trúc">
+      <button type="button" class="filter-btn is-active" data-filter="all">Tất cả</button>
+      <button type="button" class="filter-btn" data-filter="dense">Dense</button>
+      <button type="button" class="filter-btn" data-filter="vgg">VGG</button>
+      <button type="button" class="filter-btn" data-filter="resnet">ResNet</button>
+      <button type="button" class="filter-btn" data-filter="inception">Inception</button>
+      <button type="button" class="filter-btn" data-filter="convnext">ConvNeXt</button>
+      <button type="button" class="filter-btn" data-filter="mobilenet">MobileNet</button>
+    </nav>
+    <div class="runtime-badge">
+      <span class="runtime-dot" aria-hidden="true"></span>
+      <span class="mono">Offline · 8010</span>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- Overview Hero -->
+  <section class="hero-overview">
+    <div class="wrap">
+      <h1 class="hero-title">Khảo sát 8 mô hình CNN<br />trên 7.200 ảnh MRI não</h1>
+      <p class="hero-lead">
+        Đánh giá thực nghiệm về sự đánh đổi giữa độ chính xác phân loại, chiều sâu đóng băng tầng mạng
+        (freeze depth) và chi phí tính toán trên 6 trường phái kiến trúc: DenseNet, VGG, ResNet, Inception, ConvNeXt (2022) và MobileNet.
+      </p>
+
+      <div class="highlight-chips" id="highlight-chips">
+        <div class="chip">
+          <span class="chip__label">Top 1 Accuracy</span>
+          <span class="chip__val mono">97,29%</span>
+          <span class="chip__sub">DenseNet-121 (5-Fold CV)</span>
+        </div>
+        <div class="chip">
+          <span class="chip__label">Top Demo Trực Tiếp</span>
+          <span class="chip__val mono">95,12%</span>
+          <span class="chip__sub">VGG16 (Mở Block 4+5)</span>
+        </div>
+        <div class="chip">
+          <span class="chip__label">Tốc độ nhanh nhất</span>
+          <span class="chip__val mono">57,05 ms</span>
+          <span class="chip__sub">ResNet50 (GPU Kaggle)</span>
+        </div>
+        <div class="chip">
+          <span class="chip__label">Tập kiểm thử</span>
+          <span class="chip__val mono">1.600</span>
+          <span class="chip__sub">400 ca / mỗi nhóm bệnh</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Leaderboard Section -->
+  <section class="section" id="leaderboard">
+    <div class="wrap">
+      <div class="section-header">
+        <h2 class="section-title">Bảng xếp hạng hiệu năng và chi phí tính toán</h2>
+        <p class="section-lead">Số liệu đo lường trực tiếp trên 1.600 ảnh kiểm thử độc lập, đối chiếu từ các tập nhật ký thực nghiệm gốc.</p>
+      </div>
+
+      <div class="table-card">
+        <table class="data-table" id="leaderboard-table">
+          <thead>
+            <tr>
+              <th scope="col">Kiến trúc mô hình</th>
+              <th scope="col">Trường phái mạng</th>
+              <th scope="col" class="num">Tham số</th>
+              <th scope="col" class="num">Test Accuracy</th>
+              <th scope="col" class="num">Macro F1</th>
+              <th scope="col" class="num">Độ trễ GPU</th>
+              <th scope="col" class="num">Dung lượng .h5</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+
+      <div class="table-footnote">
+        <p>
+          <strong>* Ghi chú học thuật &amp; Liêm chính nghiên cứu:</strong> Các mô hình đánh dấu <code>—*</code> (InceptionV3, DenseNet-169, MobileNetV2) được ghi nhận chỉ số <em>Test Accuracy</em> và <em>Test Loss</em> trực tiếp qua hàm <code>model.evaluate()</code> của TensorFlow/Keras trên tập kiểm thử độc lập; chưa trích xuất ma trận nhầm lẫn để tính toán chỉ số Macro F1 đa lớp. Các mô hình còn lại (DenseNet-121, VGG16, ResNet50, ConvNeXt-Tiny, MobileNetV3) được đánh giá toàn diện qua <code>sklearn.metrics.classification_report</code>.
+        </p>
+      </div>
+
+      <div class="bars-container" id="accuracy-bars"></div>
+    </div>
+  </section>
+
+  <!-- Track Workspaces -->
+  <section class="section" id="tracks">
+    <div class="wrap">
+      <div class="section-header">
+        <h2 class="section-title">Khảo sát chuyên sâu theo kiến trúc</h2>
+      </div>
+
+      <div class="track-tabs-nav" role="tablist" id="track-tabs">
+        <button type="button" class="track-tab-btn is-active" role="tab" data-track="vgg">VGG16 (Sequential)</button>
+        <button type="button" class="track-tab-btn" role="tab" data-track="resnet">ResNet50 (Residual)</button>
+        <button type="button" class="track-tab-btn" role="tab" data-track="mobilenet">MobileNetV3 (Lightweight)</button>
+      </div>
+
+      <div class="track-panel" id="track-panel">
+        <!-- Rendered by JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Dataset Overview Section -->
+  <section class="section" id="dataset">
+    <div class="wrap">
+      <div class="section-header">
+        <h2 class="section-title">7.200 ảnh MRI sọ não, phân bố 4 nhóm bệnh</h2>
+        <p class="section-lead">5.600 ảnh huấn luyện &amp; kiểm định (1.400 ảnh/lớp). 1.600 ảnh kiểm thử độc lập (400 ảnh/lớp).</p>
+      </div>
+
+      <div class="aug-strip" id="aug-strip">
+        <!-- 9 augmentation tiles rendered by JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Diagnostic Studio (Interactive Multi-Model Demo) -->
+  <section class="section" id="demo">
+    <div class="wrap">
+      <div class="section-header">
+        <h2 class="section-title">Chẩn đoán thử nghiệm trên ảnh MRI</h2>
+        <p class="section-lead">Suy luận thời gian thực từ trọng số cục bộ (.h5). Chọn mô hình và tải ảnh MRI để phân tích nhãn bệnh và bản đồ nhiệt.</p>
+      </div>
+
+      <div class="studio-card">
+        <div class="studio-grid">
+          <!-- Control Column -->
+          <div class="studio-controls">
+            <div class="model-select-group">
+              <label class="model-select-label" for="model-select">Chọn mô hình suy luận</label>
+              <select class="model-select" id="model-select" disabled>
+                <option value="">Đang tải mô hình…</option>
+              </select>
+            </div>
+
+            <div class="dropzone" id="dropzone" tabindex="0" role="button" aria-label="Tải ảnh MRI lên để phân loại">
+              <input type="file" id="file-input" accept="image/*" aria-label="Tải tệp ảnh MRI lên" hidden />
+              <svg class="dropzone__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M12 16V4m0 0L7 9m5-5 5 5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M4 16v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2" stroke-linecap="round"/>
+              </svg>
+              <p class="dropzone__title">Kéo thả ảnh MRI vào đây</p>
+              <p class="dropzone__hint">hoặc nhấp để duyệt file · JPEG / PNG</p>
+            </div>
+
+            <div class="studio-actions">
+              <button type="button" class="btn btn--outline" id="use-sample">Dùng ảnh mẫu</button>
+              <button type="button" class="btn btn--primary" id="predict-btn" disabled>Phân tích ảnh</button>
+            </div>
+
+            <p class="privacy-notice">Chế độ offline · Không lưu trữ ảnh trên đĩa</p>
+          </div>
+
+          <!-- Lightbox Screen Column -->
+          <div class="studio-screen">
+            <div class="lightbox-container" id="result-box" hidden>
+              <div class="diag-result-header">
+                <div>
+                  <div class="eyebrow" id="result-eyebrow" style="color:var(--lightbox-muted); margin:0;">Chẩn đoán</div>
+                  <div class="diag-status-label" id="result-label">—</div>
+                </div>
+                <div class="diag-confidence mono" id="result-confidence">—</div>
+              </div>
+
+              <!-- Probability Bars -->
+              <ul class="diag-prob-list" id="result-probs"></ul>
+
+              <!-- MRI vs Heatmap Viewer -->
+              <div class="mri-compare-box">
+                <img id="heatmap-original" alt="Ảnh MRI gốc" />
+                <img id="heatmap-overlay" alt="Bản đồ nhiệt kích hoạt" />
+              </div>
+
+              <div class="slider-wrapper">
+                <span>Ảnh gốc</span>
+                <input type="range" id="heatmap-slider" min="0" max="100" value="70" aria-label="Tỉ lệ hiển thị bản đồ nhiệt" />
+                <span id="slider-label">Bản đồ nhiệt (70%)</span>
+              </div>
+
+              <div class="diag-meta-bar" id="result-meta"></div>
+            </div>
+
+            <div class="empty-state" id="empty-state">
+              Chưa có ảnh nào được phân tích. Hãy chọn mô hình và tải ảnh MRI lên để xem nhãn phân loại và bản đồ nhiệt.
+            </div>
+
+            <div id="demo-error" style="display:none; margin-top: 1rem; color: var(--color-danger); font-size: 13px; border-left: 2px solid var(--color-danger); padding-left: 0.75rem;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- Global Footer -->
+<footer class="site-footer">
+  <div class="wrap site-footer__inner">
+    <div>
+      <p class="footer-credits">
+        <strong>Brain Tumor MRI Classification Benchmark</strong> · Nền tảng Nghiên cứu &amp; Khảo sát Giải thuật Học sâu
+      </p>
+      <p class="footer-disclaimer">
+        Khuyến cáo học thuật: Mô hình được huấn luyện nhằm phục vụ mục đích nghiên cứu lý thuyết giải thuật học máy, không thay thế chẩn đoán chuyên môn của bác sĩ chẩn đoán hình ảnh.
+      </p>
+    </div>
+    <div class="footer-links">
+      <a href="https://github.com/lqkiet07/brain-tumor-web" target="_blank" rel="noopener">Mã nguồn GitHub</a>
+      <a href="#leaderboard">Bảng đối sánh</a>
+      <a href="#tracks">Khảo sát kiến trúc</a>
+      <a href="#demo">Thử nghiệm</a>
+    </div>
+  </div>
+</footer>
+
+<script src="/js/app.js?v=3"></script>
+<script src="/js/demo.js?v=3"></script>
+</body>
+</html>
